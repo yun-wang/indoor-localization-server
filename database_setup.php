@@ -61,34 +61,23 @@
 	mysql_query($sql) || die("Error creating table: " . mysql_error() . "");
 	echo "Created table 'SIGNAL_STRENGTHS'<br />";
 	
-	//// Add in the signal strength measurements
-	//$fileName = "data_files/areas.txt";
-	//$handle = fopen($fileName,"rb");
-	//if($handle == FALSE){
-    //// Couldn't open the file
-    //echo "Error, couldn't open file $fileName<br />";
-	//} else {
-	////    while($data = fgetcsv($handle)){
-    //if($data = fgetcsv($handle)){
-      //  // Just add the first floor for now
-        //$mapName = $data[2];
-        //$fileName2 = "data_files/" . $mapName . ".sql";
-        //$handle2 = fopen($fileName2, "rb");
-        //if($handle2 == FALSE){
-         //   // Couldn't open the file
-           // echo "Error, couldn't open file $fileName2<br />";
-        //} else {
-          //  while($data2 = fgets($handle2)){
-            //    $sql = chop($data2);
-              //  mysql_query($sql) || die(mysql_error());
-                //echo "Executed: $sql<br />\n";
-            //}
-            //fclose($handle2);
-        //}
-    //}
-    //fclose($handle);
-}
-	
+	// Add in the signal strength measurements
+	$fileName = "data_files/measurements.sql";
+	$handle = fopen($fileName, "rb");
+	if($handle == FALSE){
+		//Couldn't open the file
+		echo "Error, couldn't open file $fileName<br />";
+	}
+	else{
+		while($data = fgets($handle)){
+			$sql = chop($data);
+			mysql_query($sql) || die(mysql_error());
+			echo "Executed: $sql<br />\n";
+		}
+		fclose($handle);
+	}	
+
+	echo "Successfully finished setting up database tables :D<br />";
 ?>
 </body>
 </html>
